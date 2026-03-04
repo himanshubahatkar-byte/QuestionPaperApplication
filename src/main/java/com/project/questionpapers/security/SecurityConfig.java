@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.http.HttpMethod;
 
 @Configuration
 @EnableWebSecurity
@@ -20,16 +21,21 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.csrf(csrf -> csrf.disable())
-
+        http
+                .csrf(csrf -> csrf.disable())
+                .cors(cors -> {
+                })   // ✅ ENABLE CORS
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-
                 .authorizeHttpRequests(auth -> auth
+
+                        // ✅ VERY IMPORTANT (Fix for 403)
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                         // PUBLIC
                         .requestMatchers(
@@ -44,25 +50,16 @@ public class SecurityConfig {
 
                         // STUDENT APIs
                         .requestMatchers("/api/question-papers/**")
-                        .hasAnyRole("STUDENT","ADMIN")
+                        .hasAnyRole("STUDENT", "ADMIN")
 
-                        // ANY OTHER
                         .anyRequest().authenticated()
                 )
-
                 .addFilterBefore(
                         jwtAuthenticationFilter,
                         UsernamePasswordAuthenticationFilter.class
                 );
 
         return http.build();
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(
-            AuthenticationConfiguration config
-    ) throws Exception {
-        return config.getAuthenticationManager();
     }
 }
 

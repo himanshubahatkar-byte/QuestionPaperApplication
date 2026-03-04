@@ -27,17 +27,15 @@ public class SecurityConfig {
 
         http
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> {
-                })   // ✅ ENABLE CORS
+                .cors(cors -> {})   // 🔥 ENABLE CORS
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(auth -> auth
 
-                        // ✅ VERY IMPORTANT (Fix for 403)
+                        // 🔥 IMPORTANT (Fix preflight 403)
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        // PUBLIC
                         .requestMatchers(
                                 "/api/auth/**",
                                 "/swagger-ui/**",
@@ -45,12 +43,10 @@ public class SecurityConfig {
                                 "/error"
                         ).permitAll()
 
-                        // ADMIN APIs
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
-                        // STUDENT APIs
                         .requestMatchers("/api/question-papers/**")
-                        .hasAnyRole("STUDENT", "ADMIN")
+                        .hasAnyRole("STUDENT","ADMIN")
 
                         .anyRequest().authenticated()
                 )

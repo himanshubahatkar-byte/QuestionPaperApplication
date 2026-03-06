@@ -10,13 +10,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins(
-                        "https://college-mini-project-psi.vercel.app",
-                        "https://*.preview.emergentagent.com"  // Add this for Emergent preview
-                )
+                .allowedOriginPatterns("*")  // Use allowedOriginPatterns instead of allowedOrigins
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
-                .allowCredentials(true);
+                .allowCredentials(true)
+                .exposedHeaders("Authorization");
     }
 }
 

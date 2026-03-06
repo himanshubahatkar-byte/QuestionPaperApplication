@@ -9,9 +9,11 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-
         registry.addMapping("/**")
-                .allowedOriginPatterns("*")   // better than allowedOrigins("*")
+                .allowedOrigins(
+                        "https://college-mini-project-psi.vercel.app",
+                        "https://*.preview.emergentagent.com"  // Add this for Emergent preview
+                )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);

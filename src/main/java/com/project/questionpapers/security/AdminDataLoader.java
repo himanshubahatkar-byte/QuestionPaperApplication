@@ -21,29 +21,45 @@ public class AdminDataLoader {
         return args -> {
 
             createAdminIfNotExists(
-                    "23010453175",
-                    "himanshu@11b",
+                    "23BTET1087",
+                    "Himanshu Bahatkar",
+                    "himanshubahatkar@gmail.com",
+                    "9356421851",
+                    "Electronics & Telecommunication Engineering",
+                    "himanshu@51",
                     userRepository,
                     passwordEncoder
             );
 
             createAdminIfNotExists(
-                    "23010453215",
-                    "Kshitij@123",
-                    userRepository,
-                    passwordEncoder
-            );
-
-            createAdminIfNotExists(
-                    "23010453177",
+                    "23BTET1089",
+                    "Jayash Bhuyar",
+                    "jayashbhuyar15@gmail.com",
+                    "7038677471",
+                    "Electronics & Telecommunication Engineering",
                     "jayash44338w",
                     userRepository,
                     passwordEncoder
             );
 
             createAdminIfNotExists(
-                    "23010453245",
-                    "festivalhopper@19",
+                    "23BTET1093",
+                    "Kshitij Rajendra Taywade",
+                    "shitutaywade345@gmail.com",
+                    "7038677471",
+                    "Electronics & Telecommunication Engineering",
+                    "Kshitij345T",
+                    userRepository,
+                    passwordEncoder
+            );
+
+            createAdminIfNotExists(
+                    "23BTET1114",
+                    "Shivam Satish Deshmukh",
+                    "deshmukhshivam001@gmail.com",
+                    "9325286317",
+                    "Electronics & Telecommunication Engineering",
+                    "Shivam@1234",
                     userRepository,
                     passwordEncoder
             );
@@ -52,6 +68,10 @@ public class AdminDataLoader {
 
     private void createAdminIfNotExists(
             String collegeId,
+            String fullName,
+            String email,
+            String mobileNumber,
+            String department,
             String rawPassword,
             UserRepository userRepository,
             PasswordEncoder passwordEncoder
@@ -62,6 +82,10 @@ public class AdminDataLoader {
 
         User admin = new User();
         admin.setStudentCollegeId(collegeId);
+        admin.setFullName(fullName);
+        admin.setEmail(email);
+        admin.setMobileNumber(mobileNumber);
+        admin.setDepartment(department);
         admin.setPassword(passwordEncoder.encode(rawPassword));
         admin.setRoles(new HashSet<>(Set.of(Role.ADMIN)));
         admin.setEnabled(true);

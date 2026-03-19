@@ -1,5 +1,8 @@
 package com.project.questionpapers.auth;
 
+import com.project.questionpapers.dto.ForgotPasswordRequest;
+import com.project.questionpapers.dto.LoginRequest;
+import com.project.questionpapers.dto.LoginResponse;
 import com.project.questionpapers.dto.RegisterRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,13 +27,19 @@ public class AuthController {
         return ResponseEntity.ok("Student registered successfully");
     }
 
-
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(
-            @RequestBody AuthenticationRequest request
-    ) {
-        return ResponseEntity.ok(
-                authenticationService.authenticate(request)
-        );
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+
+        LoginResponse response = authenticationService.login(request);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestBody ForgotPasswordRequest request) {
+
+        String response = authenticationService.resetPassword(request);
+
+        return ResponseEntity.ok(response);
     }
 }

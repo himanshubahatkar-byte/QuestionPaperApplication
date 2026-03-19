@@ -20,5 +20,4 @@ public interface QuestionPaperRepository extends JpaRepository<QuestionPaper, Lo
 
     List<QuestionPaper> findByExamType(String examType);
 
-
 }

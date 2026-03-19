@@ -21,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/question-papers")
+@PreAuthorize("hasRole('STUDENT')")
 public class StudentQuestionPaperController {
     private final QuestionPaperService questionPaperService;
 
@@ -49,7 +50,7 @@ public class StudentQuestionPaperController {
     }
 
     // ================= GET BY COLLEGE ID =================
-    //@PreAuthorize("hasRole('STUDENT')")
+    @PreAuthorize("hasRole('STUDENT','ADMIN')")
     @GetMapping("/{studentCollegeId}")
     public ResponseEntity<QuestionPaperResponseDTO> getByCollegeId(
             @PathVariable String studentCollegeId) {
@@ -59,7 +60,7 @@ public class StudentQuestionPaperController {
     }
 
     // ================= GET ALL =================
-    //@PreAuthorize("hasAnyRole('STUDENT','ADMIN')")
+    @PreAuthorize("hasAnyRole('STUDENT','ADMIN')")
     @GetMapping
     public ResponseEntity<List<QuestionPaperResponseDTO>> getAllQuestionPapers() {
         return ResponseEntity.ok(

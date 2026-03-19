@@ -11,5 +11,11 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     // Used during registration
     boolean existsByStudentCollegeId(String studentCollegeId);
+
+    boolean existsByEmail(String email);
+
+    boolean existsByMobileNumber(String mobileNumber);
+
+    Optional<User> findByEmail(String email);
 }
 

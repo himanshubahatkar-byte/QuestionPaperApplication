@@ -4,7 +4,7 @@ import jakarta.validation.constraints.*;
 public class QuestionPaperRequestDTO {
 
     @NotBlank(message = "Student College ID is required")
-    @Pattern(regexp = "\\d{11}", message = "College ID must be exactly 11 digits")
+    @Pattern(regexp = "[A-Z0-9]{10}", message = "College ID must be exactly 10 alphanumeric characters")
     private String studentCollegeId;
 
     @NotBlank(message = "Subject is required")

@@ -6,10 +6,7 @@ import jakarta.validation.constraints.Pattern;
 public class AuthenticationRequest {
 
     @NotBlank
-    @Pattern(
-            regexp = "\\d{11}",
-            message = "Student College ID must be exactly 11 digits"
-    )
+    @Pattern(regexp = "[A-Z0-9]{10}", message = "College ID must be exactly 10 alphanumeric characters")
     private String studentCollegeId;
 
     @NotBlank

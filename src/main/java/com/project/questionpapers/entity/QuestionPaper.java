@@ -16,9 +16,9 @@ public class QuestionPaper {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "student_college_id", length = 11, nullable = false)
-    @Pattern(regexp = "\\d{11}", message = "College ID must contain only digits")
-    @Size(min = 11, max = 11, message = "College ID must be exactly 11 digits")
+    @Column(name = "student_college_id", length = 10, nullable = false)
+    @Pattern(regexp = "[A-Z0-9]{10}", message = "College ID must contain only digits and alphabets")
+    @Size(min = 10, max = 10, message = "College ID must be exactly 10 alphanumeric characters")
     @NotBlank
     private String studentCollegeId;
 
